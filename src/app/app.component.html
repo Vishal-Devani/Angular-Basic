@@ -1,0 +1,158 @@
+<app-header></app-header>
+
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Code step by step</h1>
+            <app-login></app-login>
+            <app-profile></app-profile>
+            <h1>Counter</h1>
+            @if(display){
+            <div>
+                <h2 class="count">{{count}}</h2>
+                <div>
+                    <button class="btn bg-red" (click)="handleCounter('minus')">Decrement</button>
+                    <button class="btn bg-black" (click)="handleCounter('reset')">Reset</button>
+                    <button class="btn bg-green" (click)="handleCounter('plus')">Increment</button>
+                </div>
+            </div>
+            } @else {
+            <h2 class="count">{{email}}</h2>
+            <input type="text" name="name" #nameField>
+            <button (click)="getEmail(nameField.value)">Click Me</button>
+            }
+            <br>
+            <hr>
+            <button (click)="handleColor('red')">Red</button>
+            <button (click)="handleColor('green')">Green</button>
+            <button (click)="handleColor('blue')">BLue</button>
+            <button (click)="handleColor('yellow')">Yellow</button>
+            <button (click)="handleColor('gold')">Default</button>
+
+            <input type="text" name="color" (input)="changeColor($event)">
+
+            @switch (color) {
+            @case ('red') {
+            <h1>Red</h1>
+            }
+            @case ('green') {
+            <h1>Green</h1>
+            }
+            @case ('blue') {
+            <h1>Blue</h1>
+            }
+            @case ('yellow') {
+            <h1>Yellow</h1>
+            }
+            @default {
+            <h1>Black</h1>
+            }
+            }
+
+            <br>
+            <hr>
+
+            <h2>{{users[1]}}</h2>
+
+            @for (user of users; track user) {
+            <h3>{{user}}</h3>
+            }
+
+            @for (student of students; track student.name; let id=$index) {
+            <h4>{{id+1}},{{student.name}},{{student.age}}</h4>
+            }        
+            <br>
+            <hr>
+            <h1>Two Way Binding</h1>
+
+            <input [(ngModel)]="name" type="text">
+
+            <h1>{{name}}</h1>
+
+            <br>
+            <hr>
+        </div>
+        <div class="col-md-4">
+            <h1>To Do List</h1>
+            <input type="text" [(ngModel)]="task">
+            <button (click)="addTask()">Add Task</button>
+
+            <!-- <h1>{{task}}</h1> -->
+            @for (task of taskList; track task.id) {
+            <ul>
+                <li>{{task.task}}</li>
+                <button (click)="deleteTask(task.id)">Delete</button>
+            </ul>
+            }
+
+            <br>
+            <hr>
+
+            <h1 [style.backgroundColor]="bgColor">Dynamic Style</h1>
+
+            <br>
+            <hr>
+
+            <h1>*ngFor Loop</h1>
+
+            <ul>
+                <li *ngFor="let user of users">
+                    {{user}}
+                </li>
+            </ul>
+
+            <ul>
+                <li *ngFor="let student of students">
+                    {{student.name}}, {{student.age}}, {{student.data.room}}, {{student.data.seat}}
+                </li>
+            </ul>
+
+            <br>
+            <hr>
+
+            <h1>*ngIf Loop</h1>
+
+            <h1 *ngIf="display; else elseBlock">Heading</h1>
+            <ng-template #elseBlock>
+                <h1>No Heading</h1>
+            </ng-template>
+
+            <button (click)="updateHead()">Update</button>
+
+            <br>
+            <hr>
+
+            <h1>*ngSwitch Loop</h1>
+            <div [ngSwitch]="switchColor">
+                <h1 *ngSwitchCase="'red'" style="background-color: red;">Red Color</h1>
+                <h1 *ngSwitchCase="'green'" style="background-color: green;">Grren Color</h1>
+                <h1 *ngSwitchCase="'yellow'" style="background-color: yellow;">Yellow Color</h1>
+                <h1 *ngSwitchCase="'blue'" style="background-color: blue;">Blue Color</h1>
+                <h1 *ngSwitchCase="'pink'" style="background-color: pink;">Pink Color</h1>
+                <h1 *ngSwitchDefault>No Color Match</h1>
+            </div>
+            <button (click)="changeSwithColor('red')">Red</button>
+            <button (click)="changeSwithColor('green')">Green</button>
+            <button (click)="changeSwithColor('yellow')">Yellow</button>
+            <button (click)="changeSwithColor('blue')">Blue</button>
+            <button (click)="changeSwithColor('pink')">Pink</button>            
+        </div>
+        <div class="col-md-4">
+            <h1>Basic Routing</h1>
+            <router-outlet>
+                 <ul>
+                    <li>
+                        <a routerLink="/login">Login</a>
+                    </li>
+                    <li>
+                        <a routerLink="/about">About</a>
+                    </li>
+                    <li>
+                        <a routerLink="/contact">Contact</a>
+                    </li>
+                 </ul>
+            </router-outlet>
+        </div>
+    </div>
+</div>
